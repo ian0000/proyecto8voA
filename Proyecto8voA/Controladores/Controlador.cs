@@ -113,6 +113,14 @@ namespace Proyecto8voA.Controladores
 
             return datos;
         }
+        public string nombrepartido(string id)
+        {
+            conexion = new ConexionBD();
+            partidoPoliticoCON = new PartidoPoliticoCON(conexion);
+            string aux= partidoPoliticoCON.nombrePartido(id);
+            return aux;
+        }
+
         public bool Verificar_existe_partido(string nombre)
         {
 

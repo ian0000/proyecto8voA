@@ -174,7 +174,9 @@ namespace Proyecto8voA
                     string nombrecompleto = datos[4].ToString() +" " + datos[5].ToString(); 
                     labelObtenerNombreCandidato.Text = nombrecompleto;
                     labelObtenerNombreCandidato.Visible = true;
-                    Combox_Partido.SelectedIndex =(int) datos[3]-1;
+                    string id_partido=datos[3].ToString();
+                    string nombrepartido = controlador.nombrepartido(id_partido);
+                    Combox_Partido.SelectedItem=nombrepartido;
                     Combox_Rol.SelectedItem = datos[0];
                     // genero memory stram
                     ms = new MemoryStream();
