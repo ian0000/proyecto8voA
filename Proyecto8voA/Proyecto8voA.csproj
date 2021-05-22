@@ -172,7 +172,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IconosVisual\" />
+    <None Include="IconosVisual\guardar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\inicio1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\inicio3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\inicio2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\diagramas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\editar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\camara.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\votar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\master.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -40,5 +40,11 @@ namespace Proyecto8voA.Vista
             Login v_login = new Login();
             v_login.Visible = true;
         }
+
+        private void btnDiagramas_Click(object sender, EventArgs e)
+        {
+            Graficas graficas = new Graficas();
+            graficas.Visible = true;
+        }
     }
 }

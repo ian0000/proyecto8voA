@@ -179,5 +179,10 @@ namespace Proyecto8voA.Vista
                 v_login.Visible = true;
             }
         }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
