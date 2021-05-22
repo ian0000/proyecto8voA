@@ -133,14 +133,16 @@ namespace Proyecto8voA.Vista
             controlador = new Controlador();
             bool aux = controlador.Verificar_existe_partido(buscar_nombre);
             Console.WriteLine("eooooooo" + aux);
-            if (buscar_nombre == "Nulo" || buscar_nombre == "NULO")
+            if (buscar_nombre.Equals("Nulo") || buscar_nombre.Equals("NULO"))
             {
                 Ver_Imagen.Image = null;
                 Btn_Modificar.Enabled = false;
                 Btn_Eliminar.Enabled = false;
                 Btn_Guardar.Enabled = false;
             }
-            else {
+            else
+            {
+
                 if (aux)//si existe que se llene caso contrario no
                 {
                     List<object> datos = new List<object>();
