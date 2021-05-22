@@ -10,7 +10,7 @@ namespace Proyecto8voA
     public class ConexionBD
     {
         private static string USER = "root"; //static => Porque creara un puntero a memoria que no se va a mover
-        private static string PASS = "ianrootpass";
+        private static string PASS = "";
         private static string NOMBREBD = "proyectopd2";
         private static string SERVIDOR = "localhost";
 

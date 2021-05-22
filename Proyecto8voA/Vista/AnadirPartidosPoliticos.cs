@@ -133,24 +133,33 @@ namespace Proyecto8voA.Vista
             controlador = new Controlador();
             bool aux = controlador.Verificar_existe_partido(buscar_nombre);
             Console.WriteLine("eooooooo" + aux);
-            if(aux)//si existe que se llene caso contrario no
-            { 
-                List<object> datos = new List<object>();
-                datos = controlador.Llenar_campos(buscar_nombre, 3);
-                ms = new MemoryStream();
-                ms = (MemoryStream)datos[1];
-                Bitmap bp = new Bitmap(ms);
-                Ver_Imagen.Image = bp;
-                Btn_Modificar.Enabled = true;
-                Btn_Eliminar.Enabled = true;
-                Btn_Guardar.Enabled = false;
-            }
-            else
+            if (buscar_nombre == "Nulo" || buscar_nombre == "NULO")
             {
                 Ver_Imagen.Image = null;
                 Btn_Modificar.Enabled = false;
                 Btn_Eliminar.Enabled = false;
-                Btn_Guardar.Enabled = true;
+                Btn_Guardar.Enabled = false;
+            }
+            else {
+                if (aux)//si existe que se llene caso contrario no
+                {
+                    List<object> datos = new List<object>();
+                    datos = controlador.Llenar_campos(buscar_nombre, 3);
+                    ms = new MemoryStream();
+                    ms = (MemoryStream)datos[1];
+                    Bitmap bp = new Bitmap(ms);
+                    Ver_Imagen.Image = bp;
+                    Btn_Modificar.Enabled = true;
+                    Btn_Eliminar.Enabled = true;
+                    Btn_Guardar.Enabled = false;
+                }
+                else
+                {
+                    Ver_Imagen.Image = null;
+                    Btn_Modificar.Enabled = false;
+                    Btn_Eliminar.Enabled = false;
+                    Btn_Guardar.Enabled = true;
+                }
             }
         }
     }
