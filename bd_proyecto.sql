@@ -1,152 +1,106 @@
--- phpMyAdmin SQL Dump
--- version 5.0.4
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2021 a las 17:58:43
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.0
+-- MySQL Workbench Forward Engineering
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema proyectopd2
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `proyectopd2` ;
+
+-- -----------------------------------------------------
+-- Schema proyectopd2
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `proyectopd2` DEFAULT CHARACTER SET utf8 ;
+USE `proyectopd2` ;
+
+-- -----------------------------------------------------
+-- Table `proyectopd2`.`tbasevotantes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyectopd2`.`tbasevotantes` ;
+
+CREATE TABLE IF NOT EXISTS `proyectopd2`.`tbasevotantes` (
+  `bas_cedula_identidad` VARCHAR(15) NOT NULL,
+  `bas_nombres` VARCHAR(100) NOT NULL,
+  `bas__apellidos` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`bas_cedula_identidad`),
+  UNIQUE INDEX `bas_cedula_identidad_UNIQUE` (`bas_cedula_identidad` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- -----------------------------------------------------
+-- Table `proyectopd2`.`tpartidopolitico`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyectopd2`.`tpartidopolitico` ;
 
---
--- Base de datos: `proyectopd2`
---
-CREATE DATABASE IF NOT EXISTS `proyectopd2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `proyectopd2`;
+CREATE TABLE IF NOT EXISTS `proyectopd2`.`tpartidopolitico` (
+  `par_id` INT NOT NULL AUTO_INCREMENT,
+  `par_logo` LONGBLOB NOT NULL,
+  `par_nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`par_id`),
+  UNIQUE INDEX `par_id_UNIQUE` (`par_id` ASC) ,
+  UNIQUE INDEX `par_nombre_UNIQUE` (`par_nombre` ASC) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `tbasevotantes`
---
+-- -----------------------------------------------------
+-- Table `proyectopd2`.`tcandidato`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyectopd2`.`tcandidato` ;
 
-CREATE TABLE `tbasevotantes` (
-  `bas_cedula_identidad` varchar(15) NOT NULL,
-  `bas_nombres` varchar(100) NOT NULL,
-  `bas__apellidos` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `proyectopd2`.`tcandidato` (
+  `can_id` INT NOT NULL AUTO_INCREMENT,
+  `can_rol` VARCHAR(45) NOT NULL,
+  `can_foto` LONGBLOB NULL DEFAULT NULL,
+  `FK_votantes_candidato` VARCHAR(15) NOT NULL,
+  `FK_partidopolitico_candidato` INT NOT NULL,
+  PRIMARY KEY (`can_id`),
+  UNIQUE INDEX `can_cedula_identidad_UNIQUE` (`can_id` ASC) ,
+  INDEX `fk_tcandidato_tbasevotantes1_idx` (`FK_votantes_candidato` ASC) ,
+  INDEX `fk_tcandidato_tpartidopolitico1_idx` (`FK_partidopolitico_candidato` ASC) ,
+  CONSTRAINT `fk_tcandidato_tbasevotantes1`
+    FOREIGN KEY (`FK_votantes_candidato`)
+    REFERENCES `proyectopd2`.`tbasevotantes` (`bas_cedula_identidad`),
+  CONSTRAINT `fk_tcandidato_tpartidopolitico1`
+    FOREIGN KEY (`FK_partidopolitico_candidato`)
+    REFERENCES `proyectopd2`.`tpartidopolitico` (`par_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `tcandidato`
---
+-- -----------------------------------------------------
+-- Table `proyectopd2`.`tvoto`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `proyectopd2`.`tvoto` ;
 
-CREATE TABLE `tcandidato` (
-  `can_id` int(11) NOT NULL,
-  `can_rol` varchar(45) NOT NULL,
-  `can_foto` longblob DEFAULT NULL,
-  `FK_votantes_candidato` varchar(15) NOT NULL,
-  `FK_partidopolitico_candidato` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `proyectopd2`.`tvoto` (
+  `voto_id` INT NOT NULL AUTO_INCREMENT,
+  `FK_partidopolitico_voto` INT NOT NULL,
+  `FK_votantes_voto` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`voto_id`),
+  UNIQUE INDEX `voto_id_UNIQUE` (`voto_id` ASC) ,
+  INDEX `fk_tvoto_tpartidopolitico1_idx` (`FK_partidopolitico_voto` ASC) ,
+  INDEX `fk_tvoto_tbasevotantes1_idx` (`FK_votantes_voto` ASC) ,
+  CONSTRAINT `fk_tvoto_tbasevotantes1`
+    FOREIGN KEY (`FK_votantes_voto`)
+    REFERENCES `proyectopd2`.`tbasevotantes` (`bas_cedula_identidad`),
+  CONSTRAINT `fk_tvoto_tpartidopolitico1`
+    FOREIGN KEY (`FK_partidopolitico_voto`)
+    REFERENCES `proyectopd2`.`tpartidopolitico` (`par_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `tpartidopolitico`
---
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-CREATE TABLE `tpartidopolitico` (
-  `par_id` int(11) NOT NULL,
-  `par_logo` longblob NOT NULL,
-  `par_nombre` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tvoto`
---
-
-CREATE TABLE `tvoto` (
-  `voto_id` int(11) NOT NULL,
-  `FK_partidopolitico_voto` int(11) NOT NULL,
-  `FK_votantes_voto` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `tbasevotantes`
---
-ALTER TABLE `tbasevotantes`
-  ADD PRIMARY KEY (`bas_cedula_identidad`),
-  ADD UNIQUE KEY `bas_cedula_identidad_UNIQUE` (`bas_cedula_identidad`);
-
---
--- Indices de la tabla `tcandidato`
---
-ALTER TABLE `tcandidato`
-  ADD PRIMARY KEY (`can_id`),
-  ADD UNIQUE KEY `can_cedula_identidad_UNIQUE` (`can_id`),
-  ADD KEY `fk_tcandidato_tbasevotantes1_idx` (`FK_votantes_candidato`),
-  ADD KEY `fk_tcandidato_tpartidopolitico1_idx` (`FK_partidopolitico_candidato`);
-
---
--- Indices de la tabla `tpartidopolitico`
---
-ALTER TABLE `tpartidopolitico`
-  ADD PRIMARY KEY (`par_id`),
-  ADD UNIQUE KEY `par_id_UNIQUE` (`par_id`),
-  ADD UNIQUE KEY `par_nombre_UNIQUE` (`par_nombre`);
-
---
--- Indices de la tabla `tvoto`
---
-ALTER TABLE `tvoto`
-  ADD PRIMARY KEY (`voto_id`),
-  ADD UNIQUE KEY `voto_id_UNIQUE` (`voto_id`),
-  ADD KEY `fk_tvoto_tpartidopolitico1_idx` (`FK_partidopolitico_voto`),
-  ADD KEY `fk_tvoto_tbasevotantes1_idx` (`FK_votantes_voto`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `tcandidato`
---
-ALTER TABLE `tcandidato`
-  MODIFY `can_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `tpartidopolitico`
---
-ALTER TABLE `tpartidopolitico`
-  MODIFY `par_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `tcandidato`
---
-ALTER TABLE `tcandidato`
-  ADD CONSTRAINT `fk_tcandidato_tbasevotantes1` FOREIGN KEY (`FK_votantes_candidato`) REFERENCES `tbasevotantes` (`bas_cedula_identidad`),
-  ADD CONSTRAINT `fk_tcandidato_tpartidopolitico1` FOREIGN KEY (`FK_partidopolitico_candidato`) REFERENCES `tpartidopolitico` (`par_id`);
-
---
--- Filtros para la tabla `tvoto`
---
-ALTER TABLE `tvoto`
-  ADD CONSTRAINT `fk_tvoto_tbasevotantes1` FOREIGN KEY (`FK_votantes_voto`) REFERENCES `tbasevotantes` (`bas_cedula_identidad`),
-  ADD CONSTRAINT `fk_tvoto_tpartidopolitico1` FOREIGN KEY (`FK_partidopolitico_voto`) REFERENCES `tpartidopolitico` (`par_id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-insert into tbasevotantes (bas_cedula_identidad,bas_nombres,bas__apellidos)values ('9999999989','Master','Root');
+INSERT INTO `tpartidopolitico`(`par_id`, `par_logo`, `par_nombre`) VALUES (1,'Nulo','Nulo');
