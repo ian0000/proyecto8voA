@@ -159,6 +159,31 @@ namespace Proyecto8voA.Controladores
             return aux;
         }
 
+        public string nombrePartido(string id)
+        {
+            string aux = "";
+            try
+            {
+                MySqlConnection con = conexion.cnx();
+                con.Open();
+                MySqlCommand command = new MySqlCommand("SELECT par_nombre FROM tpartidopolitico WHERE par_id = '" + id+"'", con);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    aux = reader.GetString(0);
+                }
+                reader.Close();
+                con.Close();
+            }
+            catch (MySqlException ex)
+            {
+
+                Console.WriteLine("Error al buscar partido " + ex);
+                MessageBox.Show("Error al buscar partido " + ex);
+            }
+            return aux;
+        }
+
         public int obtener_votos(string nombre)
         {
             int aux = 0;
