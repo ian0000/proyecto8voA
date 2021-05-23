@@ -10,8 +10,8 @@ namespace Proyecto8voA
     public class ConexionBD
     {
         private static string USER = "root"; //static => Porque creara un puntero a memoria que no se va a mover
-        private static string PASS = "alejo";
-        private static string NOMBREBD = "proyectopda";
+        private static string PASS = "ianrootpass";
+        private static string NOMBREBD = "proyectopd2";
         private static string SERVIDOR = "localhost";
 
         static string cadenaConexion = "Server ="+  SERVIDOR+"; Database="+NOMBREBD+";User Id = "+USER+"; Password="+ PASS+";";//debe ser este orden o morimos
