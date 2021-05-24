@@ -30,7 +30,7 @@ namespace Proyecto8voA.Controladores
                 MySqlCommand command = new MySqlCommand("INSERT INTO tpartidopolitico(par_logo, par_nombre) VALUES(@par_logo, '" + partidoPolitico.get_par_nombre() + "')", con);
                 command.Parameters.AddWithValue("@par_logo", partidoPolitico.get_par_logo());
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se guardo correctamente");
+                MessageBox.Show("Se guardó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)
@@ -49,7 +49,7 @@ namespace Proyecto8voA.Controladores
                 //inicio de la sentencia para bd eliminar un partido
                 MySqlCommand command = new MySqlCommand("DELETE FROM tpartidopolitico WHERE par_nombre = '" + partidoPolitico.get_par_nombre()+"'", con);
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se elimino correctamente");
+                MessageBox.Show("Se eliminó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)
@@ -69,7 +69,7 @@ namespace Proyecto8voA.Controladores
                 MySqlCommand command = new MySqlCommand("UPDATE tpartidopolitico SET par_logo = @par_logo WHERE par_nombre = '" + partidoPolitico.get_par_nombre() + "'", con);
                 command.Parameters.AddWithValue("@par_logo", partidoPolitico.get_par_logo());
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se actualizo correctamente");
+                MessageBox.Show("Se actualizó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)

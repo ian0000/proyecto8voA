@@ -56,7 +56,7 @@ namespace Proyecto8voA.Controladores
                 MySqlCommand command = new MySqlCommand("INSERT INTO tcandidato (can_rol,can_foto,FK_votantes_candidato,FK_partidopolitico_candidato) VALUES('" + entrada.get_can_rol() + "',@imagen,'"+entrada.Get_bas_cedula_identidad()+"',"+idpartido+")", con);
                 command.Parameters.AddWithValue("@imagen",entrada.get_can_foto());
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se guardo correctamente");
+                MessageBox.Show("Se guardó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)
@@ -77,7 +77,7 @@ namespace Proyecto8voA.Controladores
                 MySqlCommand command = new MySqlCommand("UPDATE tcandidato SET can_rol = '"+entrada.get_can_rol()+"' , can_foto = @imagen , FK_partidopolitico_candidato = " + idpartido + " WHERE FK_votantes_candidato = '" + entrada.Get_bas_cedula_identidad()+"' ", con);
                 command.Parameters.AddWithValue("@imagen", entrada.get_can_foto());
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se actualizo correctamente");
+                MessageBox.Show("Se actualizó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)
@@ -95,7 +95,7 @@ namespace Proyecto8voA.Controladores
                 //inicio de la sentencia para bd insertar un nuevo votante
                 MySqlCommand command = new MySqlCommand("DELETE FROM tcandidato WHERE FK_votantes_candidato ='"+entrada.Get_bas_cedula_identidad()+"'", con);
                 command.ExecuteNonQuery();
-                MessageBox.Show("Se elemino correctamente");
+                MessageBox.Show("Se eleminó correctamente");
                 con.Close();
             }
             catch (MySqlException ex)

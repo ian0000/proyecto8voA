@@ -204,5 +204,8 @@
   <ItemGroup>
     <None Include="IconosVisual\master.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="IconosVisual\registrovotuis.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
