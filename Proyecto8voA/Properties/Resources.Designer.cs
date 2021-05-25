@@ -163,6 +163,16 @@ namespace Proyecto8voA.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap registrovotuis {
+            get {
+                object obj = ResourceManager.GetObject("registrovotuis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap votar {
             get {
                 object obj = ResourceManager.GetObject("votar", resourceCulture);

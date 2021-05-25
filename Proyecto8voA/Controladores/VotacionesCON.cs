@@ -30,7 +30,7 @@ namespace Proyecto8voA.Controladores
                     //inicio de la sentencia para bd insertar un nuevo votante
                     MySqlCommand command = new MySqlCommand("INSERT INTO  tvoto (FK_partidopolitico_voto, FK_votantes_voto) VALUES ('" + Partido + "','" + CedulaVotantes + "')", con);
                     command.ExecuteNonQuery();
-                    MessageBox.Show("Se guardo el voto correctamente");
+                    MessageBox.Show("Se guardó el voto correctamente");
                     con.Close();
                 }
             }

@@ -78,7 +78,7 @@ namespace Proyecto8voA.Vista
                 }
                 else
                 {
-                    MessageBox.Show("Cedula no registrada");
+                    MessageBox.Show("Cédula no registrada");
                     button1.Enabled = false;
                 }
 

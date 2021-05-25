@@ -58,7 +58,7 @@ namespace Proyecto8voA.Vista
             string cedula = Txt_Cedula.Text;
                 if (CheckNulo.Checked)
                 {
-                    DialogResult op = MessageBox.Show("¿Seguro que votaras por: Nulo ?", "Confirmar Votacion", MessageBoxButtons.YesNo);
+                    DialogResult op = MessageBox.Show("¿Seguro que votarás por: Nulo ?", "Confirmar Votación", MessageBoxButtons.YesNo);
                     if (op == DialogResult.Yes)
                     {
                         controlador.GuardarVotacion(cedula, "Nulo");
@@ -69,7 +69,7 @@ namespace Proyecto8voA.Vista
                 else
                 {
                     string nombre_partido = CB_Partido.SelectedItem.ToString();
-                    DialogResult op = MessageBox.Show("¿Seguro que votaras por: " + nombre_partido + " ?", "Confirmar Votacion", MessageBoxButtons.YesNo);
+                    DialogResult op = MessageBox.Show("¿Seguro que votarás por: " + nombre_partido + " ?", "Confirmar Votación", MessageBoxButtons.YesNo);
                     if (op == DialogResult.Yes)
                     {
                         controlador.GuardarVotacion(cedula, nombre_partido);
@@ -174,7 +174,7 @@ namespace Proyecto8voA.Vista
             if (aux)
             {
                 Login v_login = new Login();
-                MessageBox.Show("Esta cedula ya voto y no se puede duplicar");
+                MessageBox.Show("Esta cédula ya votó, no se puede duplicar");
                 Dispose();
                 v_login.Visible = true;
             }
