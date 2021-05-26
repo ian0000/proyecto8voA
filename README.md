@@ -1,2 +1,2 @@
 # proyecto8voA
-segundo intento del proyecto de votaciones, al menos ya se salvo 
+VotingPro - La solución que automariza procesos electorales.
