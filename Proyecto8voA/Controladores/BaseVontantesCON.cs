@@ -13,57 +13,38 @@ namespace Proyecto8voA.Controladores
     {
         public ConexionBD conexion;
 
-
+        //comenzamos con un constructor con el parametro de la bd para cuando se le llame se obtengan todas las conexiones
         public BaseVontantesCON(ConexionBD conexion)
         {
             this.conexion = conexion;
         }
 
-        public bool Comparar_cedula(string cedula)
+        //con este metodo es con el que se va a crear el votante en bd, se llama de parametro al modelo baseVotantes para poder obtener los datos directamente de ahi
+        public void Crear_votante(BaseVotantes baseVontantes)
         {
-            bool aux = false;
+            //para controlar de que se cree correctamente el dato/valor se realiza un try controlando de que se guarde co
             try
             {
                 //conexion a la bd
                 MySqlConnection con = conexion.cnx();
                 con.Open();
-                //inicio de la sentencia para bd
-                MySqlCommand command = new MySqlCommand("SELECT * FROM tbasevotantes WHERE bas_cedula_identidad = '" + cedula + "' ", con);
-                MySqlDataReader lector = command.ExecuteReader();
-                if (lector.Read())
-                {
-                    aux = true;
-                }
+
+                //inicio de la sentencia para bd insertar un nuevo votante//se obtienen los valores enviados al modelo
+                MySqlCommand command = new MySqlCommand("INSERT INTO tbasevotantes VALUES('" + baseVontantes.Get_bas_cedula_identidad() + "','" + baseVontantes.Get_bas_nombres() + "', '" + baseVontantes.Get_bas__apellidos() + "')", con);
+                
+                //comando para executar la sentencia y cerrar la conexion
+                command.ExecuteNonQuery();
                 con.Close();
+                
             }
             catch (MySqlException ex)
             {
-                aux = false;
-            }
-            return aux;
-        }
-
-        public void Crear_votante(BaseVotantes baseVontantes)
-        {
-            try
-            {
-                //conexion a la bd
-                MySqlConnection con = conexion.cnx();
-
-                {
-                    con.Open();
-                    //inicio de la sentencia para bd insertar un nuevo votante
-                    MySqlCommand command = new MySqlCommand("INSERT INTO tbasevotantes VALUES('" + baseVontantes.Get_bas_cedula_identidad() + "','" + baseVontantes.Get_bas_nombres() + "', '" + baseVontantes.Get_bas__apellidos() + "')", con);
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (MySqlException ex)
-            {
+                //para tener mas claro donde ocurrio el error se coloca un comentario de acuerdo a donde ocurre
                 Console.WriteLine("Error al crear Votante " + ex);
             }
         }
 
+        //se va a eliminar votantes con este metodo y de esta manera 
         public void Eliminar_votante(string cedula)
         {
             try
@@ -71,13 +52,16 @@ namespace Proyecto8voA.Controladores
                 //conexion a la bd
                 MySqlConnection con = conexion.cnx();
                 con.Open();
-                //sentencia para eliminar un votante
+                //sentencia para eliminar un votante//al ser cedula un PK esta usamos para realizar las busquedas ya que es unica
                 MySqlCommand command = new MySqlCommand("DELETE FROM tbasevotantes WHERE bas_cedula_identidad = '" + cedula + "'",con);
+
+                //comando para executar la sentencia y cerrar la conexion
                 command.ExecuteNonQuery();
                 con.Close();
             }
             catch (MySqlException ex)
             {
+                //para tener mas claro donde ocurrio el error se coloca un comentario de acuerdo a donde ocurre
                 Console.WriteLine("Error al eliminar Votante " + ex);
             }
         }
@@ -89,17 +73,22 @@ namespace Proyecto8voA.Controladores
                 //conexion a la bd
                 MySqlConnection con = conexion.cnx();
                 con.Open();
+
                 //para modificar en caso de que fallo
                 MySqlCommand command = new MySqlCommand("UPDATE tbasevotantes SET bas_nombres= '" + baseVotantes.Get_bas_nombres() +
-                    "', bas__apellidos = '" + baseVotantes.Get_bas__apellidos()+"' WHERE bas_cedula_identidad = '" + baseVotantes.Get_bas_cedula_identidad() + "'", con);
+                        "', bas__apellidos = '" + baseVotantes.Get_bas__apellidos()+"' WHERE bas_cedula_identidad = '" + baseVotantes.Get_bas_cedula_identidad() + "'", con);
+
+                //comando para executar la sentencia y cerrar la conexion
                 command.ExecuteNonQuery();
+
+                //mensaje para asegurarnos de que se modifico corrrectamente
                 MessageBox.Show("SE HAN MODIFICADOS DATOS EN LA BD", "Atencion");
                 con.Close();
             }
             catch (MySqlException ex)
             {
+                //para tener mas claro donde ocurrio el error se coloca un comentario de acuerdo a donde ocurre
                 Console.WriteLine("Error al modificar Votante " + ex);
-                MessageBox.Show("Error al modificar votante"+ex, "Atencion");
 
 
             }
@@ -128,6 +117,7 @@ namespace Proyecto8voA.Controladores
             catch (MySqlException ex)
             {
 
+                //para tener mas claro donde ocurrio el error se coloca un comentario de acuerdo a donde ocurre
                 Console.WriteLine("Error al buscar Votante " + ex);
             }
             return aux;
@@ -154,6 +144,7 @@ namespace Proyecto8voA.Controladores
             }
             catch (MySqlException ex)
             {
+                //para tener mas claro donde ocurrio el error se coloca un comentario de acuerdo a donde ocurre
                 Console.WriteLine("Error al buscar Votante " + ex);
             }
             return datos;
